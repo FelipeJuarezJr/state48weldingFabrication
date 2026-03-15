@@ -28,12 +28,12 @@
 <a class="text-sm font-medium hover:text-primary transition-colors" href="#">Expertise</a>
 <a class="text-sm font-medium hover:text-primary transition-colors" href="showcase.html">Showcase</a>
 </nav>
-<button class="flex min-w-30 cursor-pointer items-center justify-center rounded-lg h-10 px-5 bg-primary text-white text-sm font-bold shadow-lg shadow-primary/20 hover:scale-105 transition-transform">
-<span>Get a Quote</span>
-</button>
+    <button class="flex min-w-30 cursor-pointer items-center justify-center rounded-lg h-10 px-5 bg-blue-600 text-white text-sm font-bold shadow-lg shadow-blue-600/20 hover:bg-blue-700 hover:-translate-y-0.5 hover:shadow-blue-600/40 active:scale-95 transition-all duration-200">
+        <span>Get a Quote</span>
+    </button>
 </div>
 <div class="md:hidden">
-<span class="material-symbols-outlined cursor-pointer">menu</span>
+    <span id="open-menu" class="material-symbols-outlined cursor-pointer text-3xl p-2">menu</span>
 </div>
 </header>
 <main class="flex flex-col">
@@ -54,12 +54,12 @@
                             </p>
 </div>
 <div class="flex flex-wrap gap-4">
-<button class="flex min-w-40 cursor-pointer items-center justify-center rounded-lg h-14 px-8 bg-primary text-white text-base font-bold shadow-xl shadow-primary/30 hover:bg-orange-600 transition-all">
-<span>Get a Quote</span>
-</button>
-<button class="flex min-w-40 cursor-pointer items-center justify-center rounded-lg h-14 px-8 bg-secondary-blue text-white text-base font-bold shadow-xl shadow-secondary-blue/30 hover:bg-blue-600 transition-all">
-<span>View Projects</span>
-</button>
+    <button class="flex min-w-40 cursor-pointer items-center justify-center rounded-lg h-14 px-8 bg-orange-500 text-white text-base font-bold shadow-xl shadow-orange-500/30 hover:bg-orange-600 hover:-translate-y-0.5 hover:shadow-orange-500/40 active:scale-95 transition-all duration-200">
+        <span>Get a Quote</span>
+    </button>
+    <button class="flex min-w-40 cursor-pointer items-center justify-center rounded-lg h-14 px-8 bg-blue-600 text-white text-base font-bold shadow-xl shadow-blue-600/30 hover:bg-blue-700 hover:-translate-y-0.5 hover:shadow-blue-600/40 active:scale-95 transition-all duration-200">
+        <span>View Projects</span>
+    </button>
 </div>
 </div>
 <div class="flex-1 w-full">
@@ -260,4 +260,50 @@
 </footer>
 </div>
 </div>
+<div id="drawer-backdrop" class="fixed inset-0 z-[60] bg-black/60 opacity-0 pointer-events-none transition-opacity duration-300 md:hidden backdrop-blur-sm"></div>
+
+<div id="mobile-drawer" class="fixed inset-y-0 right-0 z-[70] w-full max-w-[300px] bg-white dark:bg-slate-900 shadow-2xl translate-x-full transition-transform duration-300 ease-in-out md:hidden border-l border-slate-200 dark:border-slate-800">
+    <div class="flex flex-col h-full p-8">
+        <div class="flex justify-end mb-10">
+            <button id="close-btn" class="size-12 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-orange-500 hover:text-white transition-all">
+                <span class="material-symbols-outlined text-2xl">close</span>
+            </button>
+        </div>
+
+        <nav class="flex flex-col gap-8">
+            <a href="index.html" class="text-xl font-bold text-slate-900 dark:text-white hover:text-orange-500 transition-colors">Home</a>
+            <a href="#" class="text-xl font-bold text-slate-900 dark:text-white hover:text-orange-500 transition-colors">Services</a>
+            <a href="#" class="text-xl font-bold text-slate-900 dark:text-white hover:text-orange-500 transition-colors">Expertise</a>
+            <a href="showcase.html" class="text-xl font-bold text-slate-900 dark:text-white hover:text-orange-500 transition-colors">Showcase</a>
+        </nav>
+
+        <div class="mt-auto">
+            <button class="w-full h-14 bg-blue-600 text-white rounded-xl font-bold shadow-lg shadow-blue-600/30 active:scale-95 transition-all">
+                Get a Quote
+            </button>
+        </div>
+    </div>
+</div>
+<script>
+    const drawer = document.getElementById('mobile-drawer');
+    const backdrop = document.getElementById('drawer-backdrop');
+    const openBtn = document.getElementById('open-menu');
+    const closeBtn = document.getElementById('close-btn');
+
+    function toggleMenu(isOpen) {
+        if (isOpen) {
+            drawer.classList.remove('translate-x-full');
+            backdrop.classList.remove('opacity-0', 'pointer-events-none');
+            document.body.style.overflow = 'hidden'; // Lock scrolling
+        } else {
+            drawer.classList.add('translate-x-full');
+            backdrop.classList.add('opacity-0', 'pointer-events-none');
+            document.body.style.overflow = 'auto'; // Unlock scrolling
+        }
+    }
+
+    openBtn.addEventListener('click', () => toggleMenu(true));
+    closeBtn.addEventListener('click', () => toggleMenu(false));
+    backdrop.addEventListener('click', () => toggleMenu(false));
+</script>
 </body></html>
