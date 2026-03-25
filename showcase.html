@@ -29,7 +29,7 @@
         }
 
         .pswp__zoom-wrap.is-active {
-            animation: pswpBlurToClear 1s cubic-bezier(0.4, 0, 0.2, 1) forwards !important;
+            animation: pswpBlurToClear var(--blur-duration, 1s) cubic-bezier(0.4, 0, 0.2, 1) forwards !important;
         }
 
         @keyframes pswpBlurToClear {
@@ -329,12 +329,22 @@
         pswpModule: () => import('photoswipe')
     });
 
+    let isInitialOpen = true;
+
+    lightbox.on('beforeOpen', () => {
+        isInitialOpen = true;
+    });
+
     lightbox.on('change', () => {
         document.querySelectorAll('.pswp__zoom-wrap').forEach(w => w.classList.remove('is-active'));
 
         if (lightbox.pswp && lightbox.pswp.currSlide && lightbox.pswp.currSlide.container) {
             const wrap = lightbox.pswp.currSlide.container;
             void wrap.offsetHeight;
+            
+            wrap.style.setProperty('--blur-duration', isInitialOpen ? '1s' : '0.5s');
+            if (isInitialOpen) isInitialOpen = false;
+            
             wrap.classList.add('is-active');
         }
     });
