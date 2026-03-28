@@ -9,6 +9,35 @@
 
 <title>Heatwave Coatings LLC | Industrial Protection</title>
     <link href="src/style.css" rel="stylesheet"/>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        /* Blur to clear and slow popup styling for PhotoSwipe */
+        .pswp {
+            --pswp-transition-duration: 1000ms !important;
+        }
+        
+        .pswp__bg {
+            backdrop-filter: blur(15px);
+            background: rgba(15, 23, 42, 0.85) !important;
+            transition: opacity 1000ms cubic-bezier(0.4, 0, 0.2, 1) !important;
+        }
+
+        .pswp__zoom-wrap {
+            filter: blur(20px);
+        }
+
+        .pswp__zoom-wrap.is-active {
+            animation: pswpBlurToClear var(--blur-duration, 1s) cubic-bezier(0.4, 0, 0.2, 1) forwards !important;
+        }
+
+        @keyframes pswpBlurToClear {
+            0% { filter: blur(20px); }
+            100% { filter: blur(0px); }
+        }
+    </style>
 </head>
 <body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100">
 <div class="relative flex h-auto min-screen w-full flex-col group/design-root overflow-x-hidden">
@@ -23,10 +52,10 @@
 </div>
 <div class="hidden md:flex flex-1 justify-end gap-8">
 <nav class="flex items-center gap-8">
-<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Home</a>
-<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Services</a>
-<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Expertise</a>
-<a class="text-sm font-medium hover:text-primary transition-colors" href="showcase.html">Showcase</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#home">Home</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#services">Services</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#expertise">Expertise</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#showcase">Showcase</a>
 </nav>
     <button class="flex min-w-30 cursor-pointer items-center justify-center rounded-lg h-10 px-5 bg-blue-600 text-white text-sm font-bold shadow-lg shadow-blue-600/20 hover:bg-blue-700 hover:-translate-y-0.5 hover:shadow-blue-600/40 active:scale-95 transition-all duration-200">
         <span>Get a Quote</span>
@@ -38,7 +67,7 @@
 </header>
 <main class="flex flex-col">
 <!-- Hero Section -->
-<section class="px-6 md:px-20 py-12 md:py-20 lg:py-24">
+<section id="home" class="px-6 md:px-20 py-12 md:py-20 lg:py-24">
 <div class="max-w-300 mx-auto flex flex-col lg:flex-row gap-12 items-center">
 <div class="flex flex-col gap-8 flex-1">
 <div class="flex flex-col gap-4">
@@ -57,7 +86,7 @@
     <button class="flex min-w-40 cursor-pointer items-center justify-center rounded-lg h-14 px-8 bg-orange-500 text-white text-base font-bold shadow-xl shadow-orange-500/30 hover:bg-orange-600 hover:-translate-y-0.5 hover:shadow-orange-500/40 active:scale-95 transition-all duration-200">
         <span>Get a Quote</span>
     </button>
-    <a href="showcase.html" class="contents">
+    <a href="#showcase" class="contents">
         <button class="flex min-w-40 cursor-pointer items-center justify-center rounded-lg h-14 px-8 bg-blue-600 text-white text-base font-bold shadow-xl shadow-blue-600/30 hover:bg-blue-700 hover:-translate-y-0.5 hover:shadow-blue-600/40 active:scale-95 transition-all duration-200">
             <span>View Projects</span>
         </button>
@@ -73,7 +102,7 @@
 </div>
 </section>
 <!-- Expertise Section -->
-<section class="bg-white dark:bg-slate-900/50 py-20 px-6 md:px-20 border-y border-slate-100 dark:border-slate-800">
+<section id="expertise" class="bg-white dark:bg-slate-900/50 py-20 px-6 md:px-20 border-y border-slate-100 dark:border-slate-800">
 <div class="max-w-300 mx-auto">
 <div class="flex flex-col gap-2 mb-12">
 <h2 class="text-3xl font-black tracking-tight text-slate-900 dark:text-white">Our Expertise</h2>
@@ -162,7 +191,7 @@
 </div>
 </section>
 <!-- Services Section -->
-<section class="py-20 px-6 md:px-20">
+<section id="services" class="py-20 px-6 md:px-20">
 <div class="max-w-300 mx-auto">
 <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
 <div class="flex flex-col gap-4 max-w-180">
@@ -241,28 +270,147 @@
 </div>
 </section>
 
-<!-- Project Gallery Section -->
-<section class="py-20 px-6 md:px-20 bg-slate-50 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
-<div class="max-w-300 mx-auto">
-<div class="flex flex-col gap-2 mb-12">
-<h2 class="text-3xl font-black tracking-tight text-slate-900 dark:text-white">Project Gallery</h2>
-<div class="h-1.5 w-20 bg-slate-500 rounded-full"></div>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-<div class="group relative overflow-hidden rounded-2xl bg-slate-200 dark:bg-slate-800 shadow-lg border border-slate-200 dark:border-slate-700">
-<img class="w-full aspect-[4/3] object-cover transition-transform duration-500 group-hover:scale-105" alt="Industrial finished part" src="/gallery/img1.png"/>
-<div class="absolute inset-0 pointer-events-none ring-inset ring-2 ring-transparent group-hover:ring-slate-500/50 rounded-2xl transition-all duration-300"></div>
-</div>
-<div class="group relative overflow-hidden rounded-2xl bg-slate-200 dark:bg-slate-800 shadow-lg border border-slate-200 dark:border-slate-700">
-<img class="w-full aspect-[4/3] object-cover transition-transform duration-500 group-hover:scale-105" alt="Sandblasting process" src="/gallery/img2.png"/>
-<div class="absolute inset-0 pointer-events-none ring-inset ring-2 ring-transparent group-hover:ring-slate-500/50 rounded-2xl transition-all duration-300"></div>
-</div>
-<div class="group relative overflow-hidden rounded-2xl bg-slate-200 dark:bg-slate-800 shadow-lg border border-slate-200 dark:border-slate-700">
-<img class="w-full aspect-[4/3] object-cover transition-transform duration-500 group-hover:scale-105" alt="Candy red finish" src="/gallery/img3.png"/>
-<div class="absolute inset-0 pointer-events-none ring-inset ring-2 ring-transparent group-hover:ring-slate-500/50 rounded-2xl transition-all duration-300"></div>
-</div>
-</div>
-</div>
+<!-- Filters -->
+<section id="showcase" class="bg-background-light dark:bg-background-dark py-8 px-4 border-y border-slate-200 dark:border-slate-800 sticky top-16.25 z-40 backdrop-blur-sm">
+    <div class="max-w-6xl mx-auto flex flex-wrap gap-3 justify-center">
+        <button class="flex items-center gap-2 px-5 py-2 rounded-full bg-primary text-white text-sm font-bold shadow-md">
+            <span class="material-symbols-outlined text-lg">apps</span>
+            All Projects
+        </button>
+        <button class="flex items-center gap-2 px-5 py-2 rounded-full bg-white dark:bg-slate-800 hover:bg-primary/10 transition-colors text-sm font-medium border border-slate-200 dark:border-slate-700">
+            <span class="material-symbols-outlined text-lg text-accent-yellow">factory</span>
+            Large Industrial
+        </button>
+        <button class="flex items-center gap-2 px-5 py-2 rounded-full bg-white dark:bg-slate-800 hover:bg-primary/10 transition-colors text-sm font-medium border border-slate-200 dark:border-slate-700">
+            <span class="material-symbols-outlined text-lg text-primary">palette</span>
+            Custom Powder
+        </button>
+        <button class="flex items-center gap-2 px-5 py-2 rounded-full bg-white dark:bg-slate-800 hover:bg-primary/10 transition-colors text-sm font-medium border border-slate-200 dark:border-slate-700">
+            <span class="material-symbols-outlined text-lg text-accent-orange">restore</span>
+            Refinishing
+        </button>
+        <button class="flex items-center gap-2 px-5 py-2 rounded-full bg-white dark:bg-slate-800 hover:bg-primary/10 transition-colors text-sm font-medium border border-slate-200 dark:border-slate-700">
+            <span class="material-symbols-outlined text-lg text-slate-500">settings</span>
+            Production Runs
+        </button>
+    </div>
+</section>
+<!-- Project Gallery -->
+<section class="px-4 py-12">
+    <div id="showcase-gallery" class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <div class="group flex flex-col bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-100 dark:border-slate-700 pswp-gallery">
+            <a href="https://lh3.googleusercontent.com/aida-public/AB6AXuCsD3oPVmUan8UQ1LAQDaCkICAMCZDy_WR-9mfGptC1modORSGkEB_7TedgYjhouXgGY2bUgDsYRhUt201vnreYQXeglTEhuP6CWswSuWo55-M4Eacl3rOT9tMLgI4mT5DlGp7cX4pnyBCbmtbALmd5RHbxvHzc31a6_dwMOKQZajl1KSX_73Cyt0w-8-jWyy5LVJvAtoRuaaYSPIBmDHgPgM9OTsZBBfpT14iBOTGN1D3-8oD2IG84prlEIQIfD2Or2k8Rq2qpVQ"
+               data-pswp-width="1200" data-cropped="true"
+               data-pswp-height="800"
+               target="_blank"
+               class="relative h-64 overflow-hidden block">
+                <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsD3oPVmUan8UQ1LAQDaCkICAMCZDy_WR-9mfGptC1modORSGkEB_7TedgYjhouXgGY2bUgDsYRhUt201vnreYQXeglTEhuP6CWswSuWo55-M4Eacl3rOT9tMLgI4mT5DlGp7cX4pnyBCbmtbALmd5RHbxvHzc31a6_dwMOKQZajl1KSX_73Cyt0w-8-jWyy5LVJvAtoRuaaYSPIBmDHgPgM9OTsZBBfpT14iBOTGN1D3-8oD2IG84prlEIQIfD2Or2k8Rq2qpVQ" alt="24' Oven Industrial Coating"/>
+                <div class="absolute top-4 left-4 bg-accent-yellow px-3 py-1 rounded text-[10px] font-black uppercase text-slate-900">Industrial</div>
+                <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <span class="material-symbols-outlined text-white text-3xl">zoom_in</span>
+                </div>
+            </a>
+            <!-- Hidden gallery images -->
+            <a href="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1200" data-pswp-width="1200" data-pswp-height="800" target="_blank" class="hidden"></a>
+            <a href="https://images.unsplash.com/photo-1504917595217-d4bf063327cb?w=1200" data-pswp-width="1200" data-pswp-height="800" target="_blank" class="hidden"></a>
+            <a href="https://images.unsplash.com/photo-1522881113591-5fad77ef96a2?w=1200" data-pswp-width="1200" data-pswp-height="800" target="_blank" class="hidden"></a>
+            <div class="p-6">
+                <h3 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors">24' Oven Industrial Coating</h3>
+                <p class="text-sm text-slate-600 dark:text-slate-400 mb-4">High-temperature protective coating applied to large-scale aerospace components.</p>
+            </div>
+        </div>
+
+        <div class="group flex flex-col bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-100 dark:border-slate-700 pswp-gallery">
+            <a href="https://lh3.googleusercontent.com/aida-public/AB6AXuCLoelsMl-H_V2GMjS-iCiGxOX-CNEj_FKTrPTn1qRAjM0TCi6eRb5I1EOcu_4CjqjPgEySdkhSR1ZnQVd_JAfU795L-ibbwvq39uXQjepMj50vehzE5bjN5LywH4HxuU6UCqGmISvbGu-OfeStCuX9QXDMgVcf2QH5bjq_E9QWia79UOZc3rg7bTBAWFdGXtS4sq5yo7WjoPAY1raUWVUXAyKkBbeWPeTHrkDk99fCh16JiqpBeuHHvrHsx4BJwUtrl6wXfK8XyQ" data-pswp-width="1200" data-cropped="true" data-pswp-height="800" target="_blank" class="relative h-64 overflow-hidden block">
+                <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLoelsMl-H_V2GMjS-iCiGxOX-CNEj_FKTrPTn1qRAjM0TCi6eRb5I1EOcu_4CjqjPgEySdkhSR1ZnQVd_JAfU795L-ibbwvq39uXQjepMj50vehzE5bjN5LywH4HxuU6UCqGmISvbGu-OfeStCuX9QXDMgVcf2QH5bjq_E9QWia79UOZc3rg7bTBAWFdGXtS4sq5yo7WjoPAY1raUWVUXAyKkBbeWPeTHrkDk99fCh16JiqpBeuHHvrHsx4BJwUtrl6wXfK8XyQ" alt="Exotic Candy Apple Rims"/>
+                <div class="absolute top-4 left-4 bg-primary px-3 py-1 rounded text-[10px] font-black uppercase text-white">Custom Finish</div>
+                <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <span class="material-symbols-outlined text-white text-3xl">zoom_in</span>
+                </div>
+            </a>
+            <!-- Hidden gallery images -->
+            <a href="https://images.unsplash.com/photo-1501426026826-31c667bdf23d?w=1200" data-pswp-width="1200" data-pswp-height="800" target="_blank" class="hidden"></a>
+            <a href="https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?w=1200" data-pswp-width="1200" data-pswp-height="800" target="_blank" class="hidden"></a>
+            <a href="https://images.unsplash.com/photo-1616880295874-83955e8c1f93?w=1200" data-pswp-width="1200" data-pswp-height="800" target="_blank" class="hidden"></a>
+            <div class="p-6">
+                <h3 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors">Exotic Candy Apple Rims</h3>
+                <p class="text-sm text-slate-600 dark:text-slate-400 mb-4">Three-stage powder process including base chrome and candy red mid-coat.</p>
+            </div>
+        </div>
+
+        <div class="group flex flex-col bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-100 dark:border-slate-700 pswp-gallery">
+            <a href="https://lh3.googleusercontent.com/aida-public/AB6AXuC7ilDmiTMNKshWH8tXOzOcyRO7rL9NSSQcPwfBu3ETXnv1w8Fcng_wyqvJt-LKMzn-xxvkooaIX2RIRxxRC67LWV8YKBLvlBsfMKeSIUvYkN-jhutZ13fYCraeIImupidD_ngzdgrcHb64PVPtEIUWPgA9RoSuh-uOErQ1PCnTQ_Zsn67Qc4lx0-JCAa7QB6PNAtR3sPK1R5rHyVZ44h_aB8qt9XdkO740jRy34P4X1Qom5nrJxVF0FN8g4VPVunL84g0RRV_TQg" data-pswp-width="1200" data-cropped="true" data-pswp-height="800" target="_blank" class="relative h-64 overflow-hidden block">
+                <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7ilDmiTMNKshWH8tXOzOcyRO7rL9NSSQcPwfBu3ETXnv1w8Fcng_wyqvJt-LKMzn-xxvkooaIX2RIRxxRC67LWV8YKBLvlBsfMKeSIUvYkN-jhutZ13fYCraeIImupidD_ngzdgrcHb64PVPtEIUWPgA9RoSuh-uOErQ1PCnTQ_Zsn67Qc4lx0-JCAa7QB6PNAtR3sPK1R5rHyVZ44h_aB8qt9XdkO740jRy34P4X1Qom5nrJxVF0FN8g4VPVunL84g0RRV_TQg" alt="Vintage Lathe Restoration"/>
+                <div class="absolute top-4 left-4 bg-accent-orange px-3 py-1 rounded text-[10px] font-black uppercase text-white">Restoration</div>
+                <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <span class="material-symbols-outlined text-white text-3xl">zoom_in</span>
+                </div>
+            </a>
+            <!-- Hidden gallery images -->
+            <a href="https://images.unsplash.com/photo-1563603417770-ce29e61db1d6?w=1200" data-pswp-width="1200" data-pswp-height="800" target="_blank" class="hidden"></a>
+            <a href="https://images.unsplash.com/photo-1505022610485-0249ba5b3675?w=1200" data-pswp-width="1200" data-pswp-height="800" target="_blank" class="hidden"></a>
+            <a href="https://images.unsplash.com/photo-1621644081035-7c152a5146d9?w=1200" data-pswp-width="1200" data-pswp-height="800" target="_blank" class="hidden"></a>
+            <div class="p-6">
+                <h3 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors">Vintage Lathe Restoration</h3>
+                <p class="text-sm text-slate-600 dark:text-slate-400 mb-4">Complete media blasting and powder refinishing to original factory specs.</p>
+            </div>
+        </div>
+
+        <div class="group flex flex-col bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-100 dark:border-slate-700 pswp-gallery">
+            <a href="https://lh3.googleusercontent.com/aida-public/AB6AXuBS5rmVbae4Bn_xixuDfZXXN18PXrbL6k3WMHBS7Q8vaMM8d82n5U43S2Zz3-7tsmLjnfZE2_jHp82zdR5_PQ4FrGIe-E1fHrFko_J9W4vTt3_GUd4RqUmqIKny3-q5sE1YdbilhcTIQOaAaRNti9RLh4LTnKqylpFMuYA1KFjVI6On5P9WP_TpfMyYSm8xxEY_HoNEHvcqQyp5geuPHtnWpxkamqNKujpjrqhzlutFtK51Kh-2JdyiyaN9PO_z1gOrNhzYkgnzRw" data-pswp-width="1200" data-cropped="true" data-pswp-height="800" target="_blank" class="relative h-64 overflow-hidden block">
+                <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBS5rmVbae4Bn_xixuDfZXXN18PXrbL6k3WMHBS7Q8vaMM8d82n5U43S2Zz3-7tsmLjnfZE2_jHp82zdR5_PQ4FrGIe-E1fHrFko_J9W4vTt3_GUd4RqUmqIKny3-q5sE1YdbilhcTIQOaAaRNti9RLh4LTnKqylpFMuYA1KFjVI6On5P9WP_TpfMyYSm8xxEY_HoNEHvcqQyp5geuPHtnWpxkamqNKujpjrqhzlutFtK51Kh-2JdyiyaN9PO_z1gOrNhzYkgnzRw" alt="OEM Component Run"/>
+                <div class="absolute top-4 left-4 bg-slate-500 px-3 py-1 rounded text-[10px] font-black uppercase text-white">Production</div>
+                <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <span class="material-symbols-outlined text-white text-3xl">zoom_in</span>
+                </div>
+            </a>
+            <!-- Hidden gallery images -->
+            <a href="https://images.unsplash.com/photo-1565439390118-c266fed36c74?w=1200" data-pswp-width="1200" data-pswp-height="800" target="_blank" class="hidden"></a>
+            <a href="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=1200" data-pswp-width="1200" data-pswp-height="800" target="_blank" class="hidden"></a>
+            <a href="https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=1200" data-pswp-width="1200" data-pswp-height="800" target="_blank" class="hidden"></a>
+            <div class="p-6">
+                <h3 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors">OEM Component Run</h3>
+                <p class="text-sm text-slate-600 dark:text-slate-400 mb-4">High-volume batch coating for structural brackets across 5,000+ units.</p>
+            </div>
+        </div>
+
+        <div class="group flex flex-col bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-100 dark:border-slate-700 pswp-gallery">
+            <a href="https://lh3.googleusercontent.com/aida-public/AB6AXuB8TdzJKSwjUb-rBscyPahOGN4zDCQNGES4iSN5JMDjDvhHt_A3qfDv-ke9yiT1F4khv_8FVbnqcezGSHa3WTLDflW7YfezT17eQcTa8_EwuaeO7bAiF3m47VSgasy4BCmf6wG4nrJCfGfuBH2tGmyfzvVQfdvvSIRCI5Om70NfJISt-rMnS5kUk7fYpazqKPOACgDi03ctSI87jIgfPm46fm5VPsTxHGUj2vFpSt5LBawQocyupXIeS63QvCHVlL24ZLR14f7k5g" data-pswp-width="1200" data-cropped="true" data-pswp-height="800" target="_blank" class="relative h-64 overflow-hidden block">
+                <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8TdzJKSwjUb-rBscyPahOGN4zDCQNGES4iSN5JMDjDvhHt_A3qfDv-ke9yiT1F4khv_8FVbnqcezGSHa3WTLDflW7YfezT17eQcTa8_EwuaeO7bAiF3m47VSgasy4BCmf6wG4nrJCfGfuBH2tGmyfzvVQfdvvSIRCI5Om70NfJISt-rMnS5kUk7fYpazqKPOACgDi03ctSI87jIgfPm46fm5VPsTxHGUj2vFpSt5LBawQocyupXIeS63QvCHVlL24ZLR14f7k5g" alt="Illusion Violet Moto Frame"/>
+                <div class="absolute top-4 left-4 bg-primary px-3 py-1 rounded text-[10px] font-black uppercase text-white">Custom Finish</div>
+                <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <span class="material-symbols-outlined text-white text-3xl">zoom_in</span>
+                </div>
+            </a>
+            <!-- Hidden gallery images -->
+            <a href="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=1200" data-pswp-width="1200" data-pswp-height="800" target="_blank" class="hidden"></a>
+            <a href="https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?w=1200" data-pswp-width="1200" data-pswp-height="800" target="_blank" class="hidden"></a>
+            <a href="https://images.unsplash.com/photo-1599324546416-5b4fc27bba09?w=1200" data-pswp-width="1200" data-pswp-height="800" target="_blank" class="hidden"></a>
+            <div class="p-6">
+                <h3 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors">Illusion Violet Moto Frame</h3>
+                <p class="text-sm text-slate-600 dark:text-slate-400 mb-4">Specialty color-shift finish that changes from violet to blue.</p>
+            </div>
+        </div>
+
+        <div class="group flex flex-col bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-100 dark:border-slate-700 pswp-gallery">
+            <a href="https://lh3.googleusercontent.com/aida-public/AB6AXuAckVUMNKT4DkTauqPuba62c15OMxrbMrl0c9K6_wdPwoGxDVZncNIVs1Cek2UwMTzDGQU4eemE_I9veFTZt-dieZfz9WVluegkxPalEtHloFzAn1-9nHl0Vz9tbdaM6Uuz0zNCfnT16CDv2MRUOJMV3Wildhb4qPwlLHYm1ks7COj1KmqcXaNq-2znB-paFH82YwuymUV41An5hog6sX6mjl_n3Mm_P82RRnXI6uTJphIcrZ-bJ-Nj7OVF_NMNsSZxHQusIyE-EA" data-pswp-width="1200" data-cropped="true" data-pswp-height="800" target="_blank" class="relative h-64 overflow-hidden block">
+                <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAckVUMNKT4DkTauqPuba62c15OMxrbMrl0c9K6_wdPwoGxDVZncNIVs1Cek2UwMTzDGQU4eemE_I9veFTZt-dieZfz9WVluegkxPalEtHloFzAn1-9nHl0Vz9tbdaM6Uuz0zNCfnT16CDv2MRUOJMV3Wildhb4qPwlLHYm1ks7COj1KmqcXaNq-2znB-paFH82YwuymUV41An5hog6sX6mjl_n3Mm_P82RRnXI6uTJphIcrZ-bJ-Nj7OVF_NMNsSZxHQusIyE-EA" alt="Heavy Steel Coating"/>
+                <div class="absolute top-4 left-4 bg-accent-yellow px-3 py-1 rounded text-[10px] font-black uppercase text-slate-900">Industrial</div>
+                <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <span class="material-symbols-outlined text-white text-3xl">zoom_in</span>
+                </div>
+            </a>
+            <!-- Hidden gallery images -->
+            <a href="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200" data-pswp-width="1200" data-pswp-height="800" target="_blank" class="hidden"></a>
+            <a href="https://images.unsplash.com/photo-1537726233481-9b6d80ffcc31?w=1200" data-pswp-width="1200" data-pswp-height="800" target="_blank" class="hidden"></a>
+            <a href="https://images.unsplash.com/photo-1504917595217-d4bf063327cb?w=1200" data-pswp-width="1200" data-pswp-height="800" target="_blank" class="hidden"></a>
+            <div class="p-6">
+                <h3 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors">Heavy Steel Coating</h3>
+                <p class="text-sm text-slate-600 dark:text-slate-400 mb-4">Structural steel coating designed for extreme environmental resistance.</p>
+            </div>
+        </div>
+    </div>
 </section>
 </main>
 <!-- Footer -->
@@ -297,10 +445,10 @@
         </div>
 
         <nav class="flex flex-col gap-8">
-            <a href="index.html" class="text-xl font-bold text-slate-900 dark:text-white hover:text-orange-500 transition-colors">Home</a>
-            <a href="#" class="text-xl font-bold text-slate-900 dark:text-white hover:text-orange-500 transition-colors">Services</a>
-            <a href="#" class="text-xl font-bold text-slate-900 dark:text-white hover:text-orange-500 transition-colors">Expertise</a>
-            <a href="showcase.html" class="text-xl font-bold text-slate-900 dark:text-white hover:text-orange-500 transition-colors">Showcase</a>
+            <a href="#home" class="text-xl font-bold text-slate-900 dark:text-white hover:text-orange-500 transition-colors">Home</a>
+            <a href="#services" class="text-xl font-bold text-slate-900 dark:text-white hover:text-orange-500 transition-colors">Services</a>
+            <a href="#expertise" class="text-xl font-bold text-slate-900 dark:text-white hover:text-orange-500 transition-colors">Expertise</a>
+            <a href="#showcase" class="text-xl font-bold text-slate-900 dark:text-white hover:text-orange-500 transition-colors">Showcase</a>
         </nav>
 
         <div class="mt-auto">
@@ -331,5 +479,70 @@
     openBtn.addEventListener('click', () => toggleMenu(true));
     closeBtn.addEventListener('click', () => toggleMenu(false));
     backdrop.addEventListener('click', () => toggleMenu(false));
+</script>
+<script type="module">
+    import PhotoSwipeLightbox from 'photoswipe/lightbox';
+    import 'photoswipe/dist/photoswipe.css';
+
+    const lightbox = new PhotoSwipeLightbox({
+        gallery: '.pswp-gallery',
+        children: 'a',
+        showHideAnimationType: 'zoom',
+        showAnimationDuration: 1000,
+        hideAnimationDuration: 1000,
+        bgOpacity: 0.85,
+        // Ensuring the module is imported correctly
+        pswpModule: () => import('photoswipe')
+    });
+
+    let isInitialOpen = true;
+
+    lightbox.on('beforeOpen', () => {
+        isInitialOpen = true;
+    });
+
+    lightbox.on('change', () => {
+        document.querySelectorAll('.pswp__zoom-wrap').forEach(w => w.classList.remove('is-active'));
+
+        if (lightbox.pswp && lightbox.pswp.currSlide && lightbox.pswp.currSlide.container) {
+            const wrap = lightbox.pswp.currSlide.container;
+            void wrap.offsetHeight;
+            
+            wrap.style.setProperty('--blur-duration', isInitialOpen ? '1s' : '0.5s');
+            if (isInitialOpen) isInitialOpen = false;
+            
+            wrap.classList.add('is-active');
+        }
+    });
+
+    // Pre-calculate image dimensions so PhotoSwipe bounding box prevents skewing
+    document.querySelectorAll('.pswp-gallery a').forEach(aEl => {
+        const thumbImg = aEl.querySelector('img');
+        if (!thumbImg) return;
+        
+        const setDimensions = () => {
+            if (thumbImg.naturalWidth) {
+                aEl.setAttribute('data-pswp-width', thumbImg.naturalWidth);
+                aEl.setAttribute('data-pswp-height', thumbImg.naturalHeight);
+            }
+        };
+
+        if (thumbImg.complete) {
+            setDimensions();
+        } else {
+            thumbImg.addEventListener('load', setDimensions);
+        }
+    });
+
+    lightbox.init();
+
+    // Global trigger for the "Explore Projects" button
+    window.openGallery = (event) => {
+        if (event && event.preventDefault) event.preventDefault();
+        const firstItem = document.querySelector('.pswp-gallery a');
+        if (firstItem) {
+            firstItem.click();
+        }
+    };
 </script>
 </body></html>
