@@ -2,12 +2,13 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-    /* Core Colors */
-    --color-primary: #0d7ff2;
-    --color-accent-orange: #f97316;
-    --color-accent-yellow: #eab308;
-    --color-background-light: #f5f7f8;
-    --color-background-dark: #101922;
+    /* Core Colors - Industrial Theme */
+    --color-primary: #d97706; /* Industrial Amber / Equipment */
+    --color-accent-orange: #9a3412; /* Cor-Ten Steel / Rust */
+    --color-accent-yellow: #facc15; /* Safety Yellow */
+    --color-secondary-blue: #475569; /* Raw Steel / Gunmetal */
+    --color-background-light: #f4f4f5; /* Zinc 100 - Clear Zinc */
+    --color-background-dark: #09090b; /* Zinc 950 - Heavy Scale Cast Iron */
 
     /* Fonts */
     --font-display: "Inter", sans-serif;
