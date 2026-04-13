@@ -223,28 +223,29 @@
 
                             <div class="flex flex-col sm:flex-row gap-3 pt-2">
                                 <div class="relative">
-                                    <button onclick="toggleQuoteOptions()"
+                                    <button onclick="toggleQuoteOptions(event)"
                                         class="btn-primary flex w-full sm:w-auto min-w-44 cursor-pointer items-center justify-center rounded-lg h-13 px-7 text-white text-base font-bold shadow-[0_0_15px_rgba(255,165,0,0.6)] hover:shadow-[0_0_20px_rgba(255,165,0,0.8)] transition-shadow">
                                         <span class="material-symbols-outlined text-lg mr-2">call</span>
                                         Get a Quote
                                     </button>
 
                                     <div id="quoteDropdown"
-                                        class="hidden absolute bottom-full left-0 mb-4 w-full flex-col gap-2">
+                                        class="hidden absolute z-50 bottom-full left-0 mb-4 w-full flex-col gap-2">
 
                                         <div class="flex flex-col gap-2 md:hidden">
-                                            <a href="tel:+14804651398"
+                                            <a href="tel:+14804651398" onclick="event.stopPropagation()"
                                                 class="flex items-center justify-center gap-2 bg-white text-orange-700 border-2 border-primary rounded-lg py-3 shadow-xl font-bold hover:bg-orange-50 transition-colors text-sm">
                                                 <span>📞 Call Us</span>
                                             </a>
                                             <a href="sms:+14804651398?body=Hi! I'd like to get a quote."
+                                                onclick="event.stopPropagation()"
                                                 class="flex items-center justify-center gap-2 bg-white text-orange-700 border-2 border-primary rounded-lg py-3 shadow-xl font-bold hover:bg-orange-50 transition-colors text-sm">
                                                 <span>💬 Text Us</span>
                                             </a>
                                         </div>
 
-                                        <div
-                                            class="hidden md:flex flex-col items-center justify-center bg-white text-orange-700 border-2 border-primary rounded-lg py-3 shadow-xl px-2">
+                                        <div onclick="event.stopPropagation()"
+                                            class="hidden flex-col items-center justify-center bg-white text-orange-700 border-2 border-primary rounded-lg py-3 shadow-xl px-2">
                                             <span class="text-xs uppercase tracking-widest opacity-70">Call Us
                                                 Directly</span>
                                             <a href="tel:+14804651398"
@@ -252,485 +253,500 @@
                                                 (480) 465-1398
                                             </a>
                                         </div>
-
                                     </div>
                                 </div>
 
-                                <script>
-                                    function toggleQuoteOptions() {
-                                        const menu = document.getElementById('quoteDropdown');
-                                        menu.classList.toggle('hidden');
-                                        menu.classList.toggle('flex');
-                                    }
-                                    window.addEventListener('click', function (e) {
-                                        const menu = document.getElementById('quoteDropdown');
-                                        const btn = e.target.closest('button');
-                                        if (!btn && !menu.classList.contains('hidden')) {
-                                            menu.classList.add('hidden');
-                                            menu.classList.remove('flex');
-                                        }
-                                    });
-                                </script>
+                                <div
+                                    class="hidden md:flex flex-col items-center justify-center bg-white text-orange-700 border-2 border-primary rounded-lg py-3 shadow-xl px-2">
+                                    <span class="text-xs uppercase tracking-widest opacity-70">Call Us
+                                        Directly</span>
+                                    <a href="tel:+14804651398"
+                                        class="font-bold text-md hover:underline decoration-2 underline-offset-4">
+                                        (480) 465-1398
+                                    </a>
+                                </div>
 
-                                <a href="#showcase" class="contents">
-                                    <button
-                                        class="bg-blue-600 hover:bg-blue-700 shadow-[0_0_15px_rgba(37,99,235,0.5)] hover:shadow-[0_0_25px_rgba(37,99,235,0.8)] flex w-full sm:w-auto min-w-44 cursor-pointer items-center justify-center rounded-lg h-13 px-7 text-white text-base font-bold transition-all duration-300">
-                                        View Our Work
-                                    </button>
-                                </a>
                             </div>
-
                         </div>
+
+                        <script>
+                            function toggleQuoteOptions(e) {
+                                // This stops the mobile drawer script from seeing this click and closing everything
+                                if (e) e.stopPropagation();
+
+                                const menu = document.getElementById('quoteDropdown');
+                                menu.classList.toggle('hidden');
+                                menu.classList.toggle('flex');
+                            }
+
+                            window.addEventListener('click', function (e) {
+                                const menu = document.getElementById('quoteDropdown');
+                                const btn = document.querySelector('button[onclick^="toggleQuoteOptions"]');
+
+                                // If the menu is hidden, we don't need to do anything
+                                if (menu.classList.contains('hidden')) return;
+
+                                // IMPORTANT: Check if the click was inside the menu OR on the button
+                                // We use .contains(e.target) to cover the icons and spans inside them too
+                                const isClickInsideMenu = menu.contains(e.target);
+                                const isClickOnButton = btn.contains(e.target);
+
+                                // If the click was outside BOTH, then close the menu
+                                if (!isClickInsideMenu && !isClickOnButton) {
+                                    menu.classList.add('hidden');
+                                    menu.classList.remove('flex');
+                                }
+                            });
+                        </script>
+
+                        <a href="#showcase" class="contents">
+                            <button
+                                class="mt-4 bg-blue-600 hover:bg-blue-700 shadow-[0_0_15px_rgba(37,99,235,0.5)] hover:shadow-[0_0_25px_rgba(37,99,235,0.8)] flex w-full sm:w-auto min-w-44 cursor-pointer items-center justify-center rounded-lg h-13 px-7 text-white text-base font-bold transition-all duration-300">
+                                View Our Work
+                            </button>
+                        </a>
                     </div>
-                </section>
 
-                <!-- Expertise Section -->
-                <section id="expertise"
-                    class="bg-white dark:bg-slate-900/50 py-16 md:py-20 px-5 md:px-20 border-y border-slate-100 dark:border-slate-800">
-                    <div class="max-w-6xl mx-auto">
-                        <div class="flex flex-col gap-2 mb-10 md:mb-12">
-                            <h2 class="text-2xl md:text-3xl font-black tracking-tight text-slate-900 dark:text-white">
-                                Our Expertise</h2>
-                            <div class="h-1.5 w-20 bg-primary rounded-full"></div>
-                        </div>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
-                            <!-- Card 1 -->
-                            <div
-                                class="group flex flex-col gap-5 p-5 rounded-2xl bg-background-light dark:bg-background-dark border border-slate-200 dark:border-slate-800 hover:border-primary/50 transition-all hover:shadow-xl">
-                                <div
-                                    class="w-full aspect-video rounded-xl overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-500">
-                                    <img class="w-full h-full object-cover" alt="Structural welding on steel beams"
-                                        src="/gallery/stickWeld.png" />
-                                </div>
-                                <div>
-                                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Structural Welding
-                                    </h3>
-                                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Heavy-duty
-                                        MIG, TIG, and stick welding for structural frameworks, supports, and
-                                        load-bearing assemblies.</p>
-                                </div>
-                            </div>
-                            <!-- Card 2 -->
-                            <div
-                                class="group flex flex-col gap-5 p-5 rounded-2xl bg-background-light dark:bg-background-dark border border-slate-200 dark:border-slate-800 hover:border-primary/50 transition-all hover:shadow-xl">
-                                <div
-                                    class="w-full aspect-video rounded-xl overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-500">
-                                    <img class="w-full h-full object-cover" alt="Custom metal fabrication in a shop"
-                                        src="/gallery/customFabrication.png" />
-                                </div>
-                                <div>
-                                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Custom Fabrication
-                                    </h3>
-                                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Precision
-                                        cutting, bending, and forming of steel to exact
-                                        specifications.</p>
-                                </div>
-                            </div>
-                            <!-- Card 3 -->
-                            <div
-                                class="group flex flex-col gap-5 p-5 rounded-2xl bg-background-light dark:bg-background-dark border border-slate-200 dark:border-slate-800 hover:border-primary/50 transition-all hover:shadow-xl sm:col-span-2 md:col-span-1">
-                                <div
-                                    class="w-full aspect-video rounded-xl overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-500">
-                                    <img class="w-full h-full object-cover" alt="Industrial metalwork and repairs"
-                                        src="/gallery/restorationBench.png" />
-                                </div>
-                                <div>
-                                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Repairs &amp;
-                                        Restoration</h3>
-                                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">On-site and
-                                        in-shop repair of cracked, broken, or worn metal components — fast and built to
-                                        last.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+        </div>
+    </div>
+    </section>
 
-                <!-- Capabilities Section -->
-                <section class="py-16 md:py-20 px-5 md:px-20 bg-slate-50 dark:bg-slate-900/30">
-                    <div class="max-w-6xl mx-auto">
-                        <div class="flex flex-col lg:flex-row gap-10 md:gap-12 items-center">
-                            <div class="flex flex-col gap-6 flex-1">
-                                <div class="flex flex-col gap-4">
-                                    <h2
-                                        class="text-2xl md:text-3xl lg:text-4xl font-black tracking-tight text-slate-900 dark:text-white">
-                                        Specialized <span class="text-primary">Capabilities</span>
-                                    </h2>
-                                    <div class="h-1.5 w-24 bg-primary rounded-full"></div>
-                                </div>
-                                <p class="text-base md:text-lg text-slate-700 dark:text-slate-300 leading-relaxed">
-                                    From one-off custom builds to high-volume fabrication runs, State 48 delivers. Our
-                                    shop is
-                                    equipped to handle steel, stainless, and aluminum projects of any complexity with
-                                    fast
-                                    turnaround and tight tolerances.
-                                </p>
-                                <div class="flex flex-wrap gap-4 pt-4">
-                                    <div class="flex flex-col gap-1">
-                                        <span class="text-3xl font-black text-primary">MIG</span>
-                                        <span class="text-xs font-bold uppercase tracking-wider text-slate-500">TIG
-                                            &amp; Stick</span>
-                                    </div>
-                                    <div class="w-px h-12 bg-slate-200 dark:bg-slate-700 mx-3"></div>
-                                    <div class="flex flex-col gap-1">
-                                        <span class="text-3xl font-black text-accent-yellow">100%</span>
-                                        <span
-                                            class="text-xs font-bold uppercase tracking-wider text-slate-500">In-House</span>
-                                    </div>
-                                    <div class="w-px h-12 bg-slate-200 dark:bg-slate-700 mx-3"></div>
-                                    <div class="flex flex-col gap-1">
-                                        <span class="text-3xl font-black text-accent-orange">Fast</span>
-                                        <span
-                                            class="text-xs font-bold uppercase tracking-wider text-slate-500">Turnaround</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flex-1 grid grid-cols-2 gap-4 w-full">
-                                <div
-                                    class="aspect-square rounded-2xl bg-primary/10 flex flex-col items-center justify-center p-5 text-center border border-primary/20">
-                                    <span class="material-symbols-outlined text-4xl text-primary mb-3">hardware</span>
-                                    <span class="text-sm font-bold text-slate-900 dark:text-white">Structural
-                                        Steel</span>
-                                </div>
-                                <div
-                                    class="aspect-square rounded-2xl bg-accent-yellow/10 flex flex-col items-center justify-center p-5 text-center border border-accent-yellow/20">
-                                    <span class="material-symbols-outlined text-4xl text-accent-yellow mb-3">bolt</span>
-                                    <span class="text-sm font-bold text-slate-900 dark:text-white">Steel Welding</span>
-                                </div>
-                                <div
-                                    class="aspect-square rounded-2xl bg-accent-orange/10 flex flex-col items-center justify-center p-5 text-center border border-accent-orange/20">
-                                    <span
-                                        class="material-symbols-outlined text-4xl text-accent-orange mb-3">verified_user</span>
-                                    <span class="text-sm font-bold text-slate-900 dark:text-white">Quality
-                                        Guaranteed</span>
-                                </div>
-                                <div
-                                    class="aspect-square rounded-2xl bg-slate-200/50 dark:bg-slate-800 flex flex-col items-center justify-center p-5 text-center border border-slate-300 dark:border-slate-700">
-                                    <span
-                                        class="material-symbols-outlined text-4xl text-slate-600 dark:text-slate-400 mb-3">speed</span>
-                                    <span class="text-sm font-bold text-slate-900 dark:text-white">Rapid Delivery</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Services Section -->
-                <section id="services" class="py-16 md:py-20 px-5 md:px-20">
-                    <div class="max-w-6xl mx-auto">
-                        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 md:mb-16">
-                            <div class="flex flex-col gap-4 max-w-xl">
-                                <h2
-                                    class="text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
-                                    Industrial <span class="text-primary">Welding Solutions</span>
-                                </h2>
-                                <p class="text-base md:text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
-                                    Built for contractors, fabricators, and anyone who needs metalwork done right — on
-                                    time and on spec.
-                                </p>
-                            </div>
-                            <div class="hidden lg:block pb-2">
-                                <div class="flex gap-2">
-                                    <div class="size-3 rounded-full bg-primary"></div>
-                                    <div class="size-3 rounded-full bg-red-600"></div>
-                                    <div class="size-3 rounded-full bg-accent-yellow"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 md:gap-6">
-                            <!-- Service 1 -->
-                            <div
-                                class="group flex flex-col gap-6 p-6 md:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:bg-primary/5 transition-colors relative overflow-hidden">
-                                <div
-                                    class="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-bl-full -mr-10 -mt-10 group-hover:scale-150 transition-transform">
-                                </div>
-                                <div
-                                    class="size-14 rounded-xl bg-primary flex items-center justify-center text-white shadow-lg shadow-primary/20">
-                                    <span class="material-symbols-outlined text-3xl">construction</span>
-                                </div>
-                                <div class="flex flex-col gap-3">
-                                    <h3 class="text-xl font-bold text-slate-900 dark:text-white">Custom Welding</h3>
-                                    <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">MIG, TIG, and
-                                        stick welding for gates, frames, trailers, equipment, and one-of-a-kind builds.
-                                    </p>
-                                </div>
-                            </div>
-                            <!-- Service 2 -->
-                            <div
-                                class="group flex flex-col gap-6 p-6 md:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:bg-red-500/5 transition-colors relative overflow-hidden">
-                                <div
-                                    class="absolute top-0 right-0 w-24 h-24 bg-red-500/5 rounded-bl-full -mr-10 -mt-10 group-hover:scale-150 transition-transform">
-                                </div>
-                                <div
-                                    class="size-14 rounded-xl bg-red-600 flex items-center justify-center text-white shadow-lg shadow-red-600/30">
-                                    <span class="material-symbols-outlined text-3xl">precision_manufacturing</span>
-                                </div>
-                                <div class="flex flex-col gap-3">
-                                    <h3 class="text-xl font-bold text-slate-900 dark:text-white">Steel Fabrication</h3>
-                                    <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
-                                        Cutting, bending, drilling, and assembling structural and decorative steel to
-                                        exact drawings and specs.
-                                    </p>
-                                </div>
-                            </div>
-                            <!-- Service 3 -->
-                            <div
-                                class="group flex flex-col gap-6 p-6 md:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:bg-accent-yellow/10 transition-colors relative overflow-hidden sm:col-span-2 md:col-span-1">
-                                <div
-                                    class="absolute top-0 right-0 w-24 h-24 bg-accent-yellow/10 rounded-bl-full -mr-10 -mt-10 group-hover:scale-150 transition-transform">
-                                </div>
-                                <div
-                                    class="size-14 rounded-xl bg-accent-yellow flex items-center justify-center text-white shadow-lg shadow-accent-yellow/20">
-                                    <span class="material-symbols-outlined text-3xl">build</span>
-                                </div>
-                                <div class="flex flex-col gap-3">
-                                    <h3 class="text-xl font-bold text-slate-900 dark:text-white">Repair &amp;
-                                        Modification</h3>
-                                    <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Welding
-                                        repairs, reinforcements, and modifications for equipment, trailers, gates, and
-                                        structural components.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Filters -->
-                <section id="showcase"
-                    class="bg-background-light dark:bg-background-dark py-5 px-4 border-y border-slate-200 dark:border-slate-800 sticky top-[61px] z-40 backdrop-blur-sm">
-                    <div class="max-w-6xl mx-auto grid grid-cols-2 md:flex md:flex-wrap gap-3 justify-center">
-
-                        <button
-                            class="flex items-center justify-center md:justify-start gap-2 px-3 py-3 rounded-xl bg-white dark:bg-slate-800 hover:bg-primary/10 transition-all text-xs sm:text-sm font-bold border border-slate-200 dark:border-slate-700 shadow-sm active:scale-95">
-                            <span class="material-symbols-outlined text-lg text-primary">hardware</span>
-                            <span class="truncate">Structural</span>
-                        </button>
-
-                        <button
-                            class="flex items-center justify-center md:justify-start gap-2 px-3 py-3 rounded-xl bg-white dark:bg-slate-800 hover:bg-primary/10 transition-all text-xs sm:text-sm font-bold border border-slate-200 dark:border-slate-700 shadow-sm active:scale-95">
-                            <span
-                                class="material-symbols-outlined text-lg text-accent-yellow">precision_manufacturing</span>
-                            <span class="truncate">Fabrication</span>
-                        </button>
-
-                        <button
-                            class="flex items-center justify-center md:justify-start gap-2 px-3 py-3 rounded-xl bg-white dark:bg-slate-800 hover:bg-primary/10 transition-all text-xs sm:text-sm font-bold border border-slate-200 dark:border-slate-700 shadow-sm active:scale-95">
-                            <span class="material-symbols-outlined text-lg text-orange-500">build</span>
-                            <span class="truncate">Repairs</span>
-                        </button>
-
-                        <button
-                            class="flex items-center justify-center md:justify-start gap-2 px-3 py-3 rounded-xl bg-white dark:bg-slate-800 hover:bg-primary/10 transition-all text-xs sm:text-sm font-bold border border-slate-200 dark:border-slate-700 shadow-sm active:scale-95">
-                            <span class="material-symbols-outlined text-lg text-slate-500">local_shipping</span>
-                            <span class="truncate">Trailers</span>
-                        </button>
-
-                    </div>
-                </section>
-
-                <!-- Project Gallery -->
-                <section class="px-4 py-10 md:py-12">
-                    <div id="showcase-gallery"
-                        class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-
-                        <div
-                            class="group flex flex-col bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-100 dark:border-slate-700 pswp-gallery">
-                            <a href="/gallery/structuralSteel.png" data-pswp-width="1260" data-cropped="true"
-                                data-pswp-height="840" target="_blank"
-                                class="relative h-56 sm:h-64 overflow-hidden block">
-                                <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                                    src="/gallery/structuralSteel.png" alt="Structural Steel Welding" />
-                                <div
-                                    class="absolute top-4 left-4 bg-primary px-3 py-1 rounded text-[10px] font-black uppercase text-white">
-                                    Structural</div>
-                                <div
-                                    class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                    <span class="material-symbols-outlined text-white text-3xl">zoom_in</span>
-                                </div>
-                            </a>
-                            <div class="p-5">
-                                <h3 class="text-lg font-bold mb-1.5 group-hover:text-primary transition-colors">
-                                    Structural Steel Welding</h3>
-                                <p class="text-sm text-slate-600 dark:text-slate-400">Heavy structural welds for
-                                    commercial and industrial applications.</p>
-                            </div>
-                        </div>
-
-                        <div
-                            class="group flex flex-col bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-100 dark:border-slate-700 pswp-gallery">
-                            <a href="/gallery/bentSteel.png" data-pswp-width="1260" data-cropped="true"
-                                data-pswp-height="840" target="_blank"
-                                class="relative h-56 sm:h-64 overflow-hidden block">
-                                <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                                    src="/gallery/bentSteel.png" alt="Custom Metal Fabrication" />
-                                <div
-                                    class="absolute top-4 left-4 bg-accent-yellow px-3 py-1 rounded text-[10px] font-black uppercase text-slate-900">
-                                    Fabrication</div>
-                                <div
-                                    class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                    <span class="material-symbols-outlined text-white text-3xl">zoom_in</span>
-                                </div>
-                            </a>
-                            <div class="p-5">
-                                <h3 class="text-lg font-bold mb-1.5 group-hover:text-primary transition-colors">Custom
-                                    Metal Fab</h3>
-                                <p class="text-sm text-slate-600 dark:text-slate-400">Cut, bent, and formed to exact
-                                    specs from raw steel stock.</p>
-                            </div>
-                        </div>
-
-                        <div
-                            class="group flex flex-col bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-100 dark:border-slate-700 pswp-gallery">
-                            <a href="/gallery/equipmentRepair.png" data-pswp-width="1260" data-cropped="true"
-                                data-pswp-height="840" target="_blank"
-                                class="relative h-56 sm:h-64 overflow-hidden block">
-                                <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                                    src="/gallery/equipmentRepair.png" alt="Metal Repair and Restoration" />
-                                <div
-                                    class="absolute top-4 left-4 bg-orange-500 px-3 py-1 rounded text-[10px] font-black uppercase text-white">
-                                    Repair</div>
-                                <div
-                                    class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                    <span class="material-symbols-outlined text-white text-3xl">zoom_in</span>
-                                </div>
-                            </a>
-                            <div class="p-5">
-                                <h3 class="text-lg font-bold mb-1.5 group-hover:text-primary transition-colors">
-                                    Equipment Repair</h3>
-                                <p class="text-sm text-slate-600 dark:text-slate-400">Welding repairs on cracked frames,
-                                    broken brackets, and worn metal components.</p>
-                            </div>
-                        </div>
-
-                        <div
-                            class="group flex flex-col bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-100 dark:border-slate-700 pswp-gallery">
-                            <a href="/gallery/doubleGate.png" data-pswp-width="1260" data-cropped="true"
-                                data-pswp-height="840" target="_blank"
-                                class="relative h-56 sm:h-64 overflow-hidden block">
-                                <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                                    src="/gallery/doubleGate.png" alt="Steel Gate and Fence Fabrication" />
-                                <div
-                                    class="absolute top-4 left-4 bg-slate-700 px-3 py-1 rounded text-[10px] font-black uppercase text-white">
-                                    Gates</div>
-                                <div
-                                    class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                    <span class="material-symbols-outlined text-white text-3xl">zoom_in</span>
-                                </div>
-                            </a>
-                            <div class="p-5">
-                                <h3 class="text-lg font-bold mb-1.5 group-hover:text-primary transition-colors">Gates
-                                    &amp; Fencing</h3>
-                                <p class="text-sm text-slate-600 dark:text-slate-400">Custom steel gates, security
-                                    fencing, and railings built to order.</p>
-                            </div>
-                        </div>
-
-                        <div
-                            class="group flex flex-col bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-100 dark:border-slate-700 pswp-gallery">
-                            <a href="/gallery/customTrailer.png" data-pswp-width="1260" data-cropped="true"
-                                data-pswp-height="840" target="_blank"
-                                class="relative h-56 sm:h-64 overflow-hidden block">
-                                <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                                    src="/gallery/customTrailer.png" alt="Trailer Fabrication" />
-                                <div
-                                    class="absolute top-4 left-4 bg-primary px-3 py-1 rounded text-[10px] font-black uppercase text-white">
-                                    Trailers</div>
-                                <div
-                                    class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                    <span class="material-symbols-outlined text-white text-3xl">zoom_in</span>
-                                </div>
-                            </a>
-                            <div class="p-5">
-                                <h3 class="text-lg font-bold mb-1.5 group-hover:text-primary transition-colors">Trailer
-                                    Builds</h3>
-                                <p class="text-sm text-slate-600 dark:text-slate-400">Custom utility, flatbed, and
-                                    specialty trailer fabrication from the ground up.</p>
-                            </div>
-                        </div>
-
-                        <div
-                            class="group flex flex-col bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-100 dark:border-slate-700 pswp-gallery">
-                            <a href="/gallery/industrialWelding.png" data-pswp-width="1260" data-cropped="true"
-                                data-pswp-height="840" target="_blank"
-                                class="relative h-56 sm:h-64 overflow-hidden block">
-                                <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                                    src="/gallery/industrialWelding.png" alt="Industrial Fabrication Project" />
-                                <div
-                                    class="absolute top-4 left-4 bg-accent-yellow px-3 py-1 rounded text-[10px] font-black uppercase text-slate-900">
-                                    Industrial</div>
-                                <div
-                                    class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                    <span class="material-symbols-outlined text-white text-3xl">zoom_in</span>
-                                </div>
-                            </a>
-                            <div class="p-5">
-                                <h3 class="text-lg font-bold mb-1.5 group-hover:text-primary transition-colors">
-                                    Industrial Projects</h3>
-                                <p class="text-sm text-slate-600 dark:text-slate-400">Large-scale industrial fabrication
-                                    and assembly for commercial clients.</p>
-                            </div>
-                        </div>
-
-                    </div>
-                </section>
-
-                <!-- Map/Contact Component -->
-                <section
-                    class="px-4 py-10 md:py-12 bg-white/80 dark:bg-background-dark/80 border-t border-slate-200 dark:border-slate-800 backdrop-blur-sm">
+    <!-- Expertise Section -->
+    <section id="expertise"
+        class="bg-white dark:bg-slate-900/50 py-16 md:py-20 px-5 md:px-20 border-y border-slate-100 dark:border-slate-800">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col gap-2 mb-10 md:mb-12">
+                <h2 class="text-2xl md:text-3xl font-black tracking-tight text-slate-900 dark:text-white">
+                    Our Expertise</h2>
+                <div class="h-1.5 w-20 bg-primary rounded-full"></div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
+                <!-- Card 1 -->
+                <div
+                    class="group flex flex-col gap-5 p-5 rounded-2xl bg-background-light dark:bg-background-dark border border-slate-200 dark:border-slate-800 hover:border-primary/50 transition-all hover:shadow-xl">
                     <div
-                        class="max-w-6xl mx-auto rounded-3xl overflow-hidden bg-white dark:bg-slate-900 shadow-xl flex flex-col md:flex-row">
-                        <div class="flex-1 p-8 md:p-12 lg:p-16 flex flex-col justify-center">
-                            <h3 class="text-2xl font-bold mb-4">Visit Our Shop</h3>
-                            <p class="text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
-                                Located in Downtown Mesa, AZ — our fabrication shop is ready to tackle your project.
-                                Stop by or
-                                give us a call to discuss your needs.
-                            </p>
-                            <div class="flex items-center gap-4 text-slate-700 dark:text-slate-300 mb-4">
-                                <span class="material-symbols-outlined text-primary">pin_drop</span>
-                                <span>55 N. Pomeroy, Mesa, AZ 85201</span>
-                            </div>
-                            <div class="flex items-center gap-4 text-slate-700 dark:text-slate-300">
-                                <span class="material-symbols-outlined text-primary">call</span>
-                                <a href="tel:+14804651398" class="font-bold hover:text-primary transition-colors">(480)
-                                    465-1398</a>
-                            </div>
-                        </div>
-                        <div class="flex-1 h-64 md:h-auto min-h-64 bg-slate-200 relative overflow-hidden">
-                            <img class="w-full h-full object-cover" alt="Map view of Mesa Arizona"
-                                src="/gallery/shopExt.png" />
-                            <div class="absolute inset-0 bg-primary/10 pointer-events-none"></div>
-                            <div
-                                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-12 rounded-full bg-primary/20 flex items-center justify-center animate-pulse">
-                                <div class="size-4 rounded-full bg-primary shadow-lg shadow-primary/50"></div>
-                            </div>
-                        </div>
+                        class="w-full aspect-video rounded-xl overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-500">
+                        <img class="w-full h-full object-cover" alt="Structural welding on steel beams"
+                            src="/gallery/stickWeld.png" />
                     </div>
-                </section>
-            </main>
-
-            <!-- Footer -->
-            <footer
-                class="py-10 md:py-12 px-5 md:px-20 border-t border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400">
-                <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 md:gap-8">
-                    <div class="flex items-center gap-3">
-                        <div class="flex flex-col leading-none">
-                            <span class="font-bold text-slate-900 dark:text-white text-sm">State 48 Welding &amp;
-                                Fabrications</span>
-                            <span class="text-xs text-slate-500">55 N. Pomeroy, Mesa, AZ 85201</span>
-                        </div>
-                    </div>
-                    <div class="flex gap-6 md:gap-10 text-sm font-medium">
-                        <a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
-                        <a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
-                        <a class="hover:text-primary transition-colors" href="#">Contact</a>
-                    </div>
-                    <div class="text-sm text-center md:text-right">
-                        © 2026 State 48 Welding &amp; Fabrications. All rights reserved.
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Structural Welding
+                        </h3>
+                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Heavy-duty
+                            MIG, TIG, and stick welding for structural frameworks, supports, and
+                            load-bearing assemblies.</p>
                     </div>
                 </div>
-            </footer>
+                <!-- Card 2 -->
+                <div
+                    class="group flex flex-col gap-5 p-5 rounded-2xl bg-background-light dark:bg-background-dark border border-slate-200 dark:border-slate-800 hover:border-primary/50 transition-all hover:shadow-xl">
+                    <div
+                        class="w-full aspect-video rounded-xl overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-500">
+                        <img class="w-full h-full object-cover" alt="Custom metal fabrication in a shop"
+                            src="/gallery/customFabrication.png" />
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Custom Fabrication
+                        </h3>
+                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Precision
+                            cutting, bending, and forming of steel to exact
+                            specifications.</p>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div
+                    class="group flex flex-col gap-5 p-5 rounded-2xl bg-background-light dark:bg-background-dark border border-slate-200 dark:border-slate-800 hover:border-primary/50 transition-all hover:shadow-xl sm:col-span-2 md:col-span-1">
+                    <div
+                        class="w-full aspect-video rounded-xl overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-500">
+                        <img class="w-full h-full object-cover" alt="Industrial metalwork and repairs"
+                            src="/gallery/restorationBench.png" />
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Repairs &amp;
+                            Restoration</h3>
+                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">On-site and
+                            in-shop repair of cracked, broken, or worn metal components — fast and built to
+                            last.</p>
+                    </div>
+                </div>
+            </div>
         </div>
+    </section>
+
+    <!-- Capabilities Section -->
+    <section class="py-16 md:py-20 px-5 md:px-20 bg-slate-50 dark:bg-slate-900/30">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col lg:flex-row gap-10 md:gap-12 items-center">
+                <div class="flex flex-col gap-6 flex-1">
+                    <div class="flex flex-col gap-4">
+                        <h2
+                            class="text-2xl md:text-3xl lg:text-4xl font-black tracking-tight text-slate-900 dark:text-white">
+                            Specialized <span class="text-primary">Capabilities</span>
+                        </h2>
+                        <div class="h-1.5 w-24 bg-primary rounded-full"></div>
+                    </div>
+                    <p class="text-base md:text-lg text-slate-700 dark:text-slate-300 leading-relaxed">
+                        From one-off custom builds to high-volume fabrication runs, State 48 delivers. Our
+                        shop is
+                        equipped to handle steel, stainless, and aluminum projects of any complexity with
+                        fast
+                        turnaround and tight tolerances.
+                    </p>
+                    <div class="flex flex-wrap gap-4 pt-4">
+                        <div class="flex flex-col gap-1">
+                            <span class="text-3xl font-black text-primary">MIG</span>
+                            <span class="text-xs font-bold uppercase tracking-wider text-slate-500">TIG
+                                &amp; Stick</span>
+                        </div>
+                        <div class="w-px h-12 bg-slate-200 dark:bg-slate-700 mx-3"></div>
+                        <div class="flex flex-col gap-1">
+                            <span class="text-3xl font-black text-accent-yellow">100%</span>
+                            <span class="text-xs font-bold uppercase tracking-wider text-slate-500">In-House</span>
+                        </div>
+                        <div class="w-px h-12 bg-slate-200 dark:bg-slate-700 mx-3"></div>
+                        <div class="flex flex-col gap-1">
+                            <span class="text-3xl font-black text-accent-orange">Fast</span>
+                            <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Turnaround</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-1 grid grid-cols-2 gap-4 w-full">
+                    <div
+                        class="aspect-square rounded-2xl bg-primary/10 flex flex-col items-center justify-center p-5 text-center border border-primary/20">
+                        <span class="material-symbols-outlined text-4xl text-primary mb-3">hardware</span>
+                        <span class="text-sm font-bold text-slate-900 dark:text-white">Structural
+                            Steel</span>
+                    </div>
+                    <div
+                        class="aspect-square rounded-2xl bg-accent-yellow/10 flex flex-col items-center justify-center p-5 text-center border border-accent-yellow/20">
+                        <span class="material-symbols-outlined text-4xl text-accent-yellow mb-3">bolt</span>
+                        <span class="text-sm font-bold text-slate-900 dark:text-white">Steel Welding</span>
+                    </div>
+                    <div
+                        class="aspect-square rounded-2xl bg-accent-orange/10 flex flex-col items-center justify-center p-5 text-center border border-accent-orange/20">
+                        <span class="material-symbols-outlined text-4xl text-accent-orange mb-3">verified_user</span>
+                        <span class="text-sm font-bold text-slate-900 dark:text-white">Quality
+                            Guaranteed</span>
+                    </div>
+                    <div
+                        class="aspect-square rounded-2xl bg-slate-200/50 dark:bg-slate-800 flex flex-col items-center justify-center p-5 text-center border border-slate-300 dark:border-slate-700">
+                        <span
+                            class="material-symbols-outlined text-4xl text-slate-600 dark:text-slate-400 mb-3">speed</span>
+                        <span class="text-sm font-bold text-slate-900 dark:text-white">Rapid Delivery</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-16 md:py-20 px-5 md:px-20">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 md:mb-16">
+                <div class="flex flex-col gap-4 max-w-xl">
+                    <h2
+                        class="text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
+                        Industrial <span class="text-primary">Welding Solutions</span>
+                    </h2>
+                    <p class="text-base md:text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
+                        Built for contractors, fabricators, and anyone who needs metalwork done right — on
+                        time and on spec.
+                    </p>
+                </div>
+                <div class="hidden lg:block pb-2">
+                    <div class="flex gap-2">
+                        <div class="size-3 rounded-full bg-primary"></div>
+                        <div class="size-3 rounded-full bg-red-600"></div>
+                        <div class="size-3 rounded-full bg-accent-yellow"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 md:gap-6">
+                <!-- Service 1 -->
+                <div
+                    class="group flex flex-col gap-6 p-6 md:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:bg-primary/5 transition-colors relative overflow-hidden">
+                    <div
+                        class="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-bl-full -mr-10 -mt-10 group-hover:scale-150 transition-transform">
+                    </div>
+                    <div
+                        class="size-14 rounded-xl bg-primary flex items-center justify-center text-white shadow-lg shadow-primary/20">
+                        <span class="material-symbols-outlined text-3xl">construction</span>
+                    </div>
+                    <div class="flex flex-col gap-3">
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white">Custom Welding</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">MIG, TIG, and
+                            stick welding for gates, frames, trailers, equipment, and one-of-a-kind builds.
+                        </p>
+                    </div>
+                </div>
+                <!-- Service 2 -->
+                <div
+                    class="group flex flex-col gap-6 p-6 md:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:bg-red-500/5 transition-colors relative overflow-hidden">
+                    <div
+                        class="absolute top-0 right-0 w-24 h-24 bg-red-500/5 rounded-bl-full -mr-10 -mt-10 group-hover:scale-150 transition-transform">
+                    </div>
+                    <div
+                        class="size-14 rounded-xl bg-red-600 flex items-center justify-center text-white shadow-lg shadow-red-600/30">
+                        <span class="material-symbols-outlined text-3xl">precision_manufacturing</span>
+                    </div>
+                    <div class="flex flex-col gap-3">
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white">Steel Fabrication</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                            Cutting, bending, drilling, and assembling structural and decorative steel to
+                            exact drawings and specs.
+                        </p>
+                    </div>
+                </div>
+                <!-- Service 3 -->
+                <div
+                    class="group flex flex-col gap-6 p-6 md:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:bg-accent-yellow/10 transition-colors relative overflow-hidden sm:col-span-2 md:col-span-1">
+                    <div
+                        class="absolute top-0 right-0 w-24 h-24 bg-accent-yellow/10 rounded-bl-full -mr-10 -mt-10 group-hover:scale-150 transition-transform">
+                    </div>
+                    <div
+                        class="size-14 rounded-xl bg-accent-yellow flex items-center justify-center text-white shadow-lg shadow-accent-yellow/20">
+                        <span class="material-symbols-outlined text-3xl">build</span>
+                    </div>
+                    <div class="flex flex-col gap-3">
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white">Repair &amp;
+                            Modification</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Welding
+                            repairs, reinforcements, and modifications for equipment, trailers, gates, and
+                            structural components.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filters -->
+    <section id="showcase"
+        class="bg-background-light dark:bg-background-dark py-5 px-4 border-y border-slate-200 dark:border-slate-800 sticky top-[61px] z-40 backdrop-blur-sm">
+        <div class="max-w-6xl mx-auto grid grid-cols-2 md:flex md:flex-wrap gap-3 justify-center">
+
+            <button
+                class="flex items-center justify-center md:justify-start gap-2 px-3 py-3 rounded-xl bg-white dark:bg-slate-800 hover:bg-primary/10 transition-all text-xs sm:text-sm font-bold border border-slate-200 dark:border-slate-700 shadow-sm active:scale-95">
+                <span class="material-symbols-outlined text-lg text-primary">hardware</span>
+                <span class="truncate">Structural</span>
+            </button>
+
+            <button
+                class="flex items-center justify-center md:justify-start gap-2 px-3 py-3 rounded-xl bg-white dark:bg-slate-800 hover:bg-primary/10 transition-all text-xs sm:text-sm font-bold border border-slate-200 dark:border-slate-700 shadow-sm active:scale-95">
+                <span class="material-symbols-outlined text-lg text-accent-yellow">precision_manufacturing</span>
+                <span class="truncate">Fabrication</span>
+            </button>
+
+            <button
+                class="flex items-center justify-center md:justify-start gap-2 px-3 py-3 rounded-xl bg-white dark:bg-slate-800 hover:bg-primary/10 transition-all text-xs sm:text-sm font-bold border border-slate-200 dark:border-slate-700 shadow-sm active:scale-95">
+                <span class="material-symbols-outlined text-lg text-orange-500">build</span>
+                <span class="truncate">Repairs</span>
+            </button>
+
+            <button
+                class="flex items-center justify-center md:justify-start gap-2 px-3 py-3 rounded-xl bg-white dark:bg-slate-800 hover:bg-primary/10 transition-all text-xs sm:text-sm font-bold border border-slate-200 dark:border-slate-700 shadow-sm active:scale-95">
+                <span class="material-symbols-outlined text-lg text-slate-500">local_shipping</span>
+                <span class="truncate">Trailers</span>
+            </button>
+
+        </div>
+    </section>
+
+    <!-- Project Gallery -->
+    <section class="px-4 py-10 md:py-12">
+        <div id="showcase-gallery"
+            class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+
+            <div
+                class="group flex flex-col bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-100 dark:border-slate-700 pswp-gallery">
+                <a href="/gallery/structuralSteel.png" data-pswp-width="1260" data-cropped="true" data-pswp-height="840"
+                    target="_blank" class="relative h-56 sm:h-64 overflow-hidden block">
+                    <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        src="/gallery/structuralSteel.png" alt="Structural Steel Welding" />
+                    <div
+                        class="absolute top-4 left-4 bg-primary px-3 py-1 rounded text-[10px] font-black uppercase text-white">
+                        Structural</div>
+                    <div
+                        class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <span class="material-symbols-outlined text-white text-3xl">zoom_in</span>
+                    </div>
+                </a>
+                <div class="p-5">
+                    <h3 class="text-lg font-bold mb-1.5 group-hover:text-primary transition-colors">
+                        Structural Steel Welding</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400">Heavy structural welds for
+                        commercial and industrial applications.</p>
+                </div>
+            </div>
+
+            <div
+                class="group flex flex-col bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-100 dark:border-slate-700 pswp-gallery">
+                <a href="/gallery/bentSteel.png" data-pswp-width="1260" data-cropped="true" data-pswp-height="840"
+                    target="_blank" class="relative h-56 sm:h-64 overflow-hidden block">
+                    <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        src="/gallery/bentSteel.png" alt="Custom Metal Fabrication" />
+                    <div
+                        class="absolute top-4 left-4 bg-accent-yellow px-3 py-1 rounded text-[10px] font-black uppercase text-slate-900">
+                        Fabrication</div>
+                    <div
+                        class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <span class="material-symbols-outlined text-white text-3xl">zoom_in</span>
+                    </div>
+                </a>
+                <div class="p-5">
+                    <h3 class="text-lg font-bold mb-1.5 group-hover:text-primary transition-colors">Custom
+                        Metal Fab</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400">Cut, bent, and formed to exact
+                        specs from raw steel stock.</p>
+                </div>
+            </div>
+
+            <div
+                class="group flex flex-col bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-100 dark:border-slate-700 pswp-gallery">
+                <a href="/gallery/equipmentRepair.png" data-pswp-width="1260" data-cropped="true" data-pswp-height="840"
+                    target="_blank" class="relative h-56 sm:h-64 overflow-hidden block">
+                    <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        src="/gallery/equipmentRepair.png" alt="Metal Repair and Restoration" />
+                    <div
+                        class="absolute top-4 left-4 bg-orange-500 px-3 py-1 rounded text-[10px] font-black uppercase text-white">
+                        Repair</div>
+                    <div
+                        class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <span class="material-symbols-outlined text-white text-3xl">zoom_in</span>
+                    </div>
+                </a>
+                <div class="p-5">
+                    <h3 class="text-lg font-bold mb-1.5 group-hover:text-primary transition-colors">
+                        Equipment Repair</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400">Welding repairs on cracked frames,
+                        broken brackets, and worn metal components.</p>
+                </div>
+            </div>
+
+            <div
+                class="group flex flex-col bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-100 dark:border-slate-700 pswp-gallery">
+                <a href="/gallery/doubleGate.png" data-pswp-width="1260" data-cropped="true" data-pswp-height="840"
+                    target="_blank" class="relative h-56 sm:h-64 overflow-hidden block">
+                    <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        src="/gallery/doubleGate.png" alt="Steel Gate and Fence Fabrication" />
+                    <div
+                        class="absolute top-4 left-4 bg-slate-700 px-3 py-1 rounded text-[10px] font-black uppercase text-white">
+                        Gates</div>
+                    <div
+                        class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <span class="material-symbols-outlined text-white text-3xl">zoom_in</span>
+                    </div>
+                </a>
+                <div class="p-5">
+                    <h3 class="text-lg font-bold mb-1.5 group-hover:text-primary transition-colors">Gates
+                        &amp; Fencing</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400">Custom steel gates, security
+                        fencing, and railings built to order.</p>
+                </div>
+            </div>
+
+            <div
+                class="group flex flex-col bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-100 dark:border-slate-700 pswp-gallery">
+                <a href="/gallery/customTrailer.png" data-pswp-width="1260" data-cropped="true" data-pswp-height="840"
+                    target="_blank" class="relative h-56 sm:h-64 overflow-hidden block">
+                    <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        src="/gallery/customTrailer.png" alt="Trailer Fabrication" />
+                    <div
+                        class="absolute top-4 left-4 bg-primary px-3 py-1 rounded text-[10px] font-black uppercase text-white">
+                        Trailers</div>
+                    <div
+                        class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <span class="material-symbols-outlined text-white text-3xl">zoom_in</span>
+                    </div>
+                </a>
+                <div class="p-5">
+                    <h3 class="text-lg font-bold mb-1.5 group-hover:text-primary transition-colors">Trailer
+                        Builds</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400">Custom utility, flatbed, and
+                        specialty trailer fabrication from the ground up.</p>
+                </div>
+            </div>
+
+            <div
+                class="group flex flex-col bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-100 dark:border-slate-700 pswp-gallery">
+                <a href="/gallery/industrialWelding.png" data-pswp-width="1260" data-cropped="true"
+                    data-pswp-height="840" target="_blank" class="relative h-56 sm:h-64 overflow-hidden block">
+                    <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        src="/gallery/industrialWelding.png" alt="Industrial Fabrication Project" />
+                    <div
+                        class="absolute top-4 left-4 bg-accent-yellow px-3 py-1 rounded text-[10px] font-black uppercase text-slate-900">
+                        Industrial</div>
+                    <div
+                        class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <span class="material-symbols-outlined text-white text-3xl">zoom_in</span>
+                    </div>
+                </a>
+                <div class="p-5">
+                    <h3 class="text-lg font-bold mb-1.5 group-hover:text-primary transition-colors">
+                        Industrial Projects</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400">Large-scale industrial fabrication
+                        and assembly for commercial clients.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Map/Contact Component -->
+    <section
+        class="px-4 py-10 md:py-12 bg-white/80 dark:bg-background-dark/80 border-t border-slate-200 dark:border-slate-800 backdrop-blur-sm">
+        <div
+            class="max-w-6xl mx-auto rounded-3xl overflow-hidden bg-white dark:bg-slate-900 shadow-xl flex flex-col md:flex-row">
+            <div class="flex-1 p-8 md:p-12 lg:p-16 flex flex-col justify-center">
+                <h3 class="text-2xl font-bold mb-4">Visit Our Shop</h3>
+                <p class="text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
+                    Located in Downtown Mesa, AZ — our fabrication shop is ready to tackle your project.
+                    Stop by or
+                    give us a call to discuss your needs.
+                </p>
+                <div class="flex items-center gap-4 text-slate-700 dark:text-slate-300 mb-4">
+                    <span class="material-symbols-outlined text-primary">pin_drop</span>
+                    <span>55 N. Pomeroy, Mesa, AZ 85201</span>
+                </div>
+                <div class="flex items-center gap-4 text-slate-700 dark:text-slate-300">
+                    <span class="material-symbols-outlined text-primary">call</span>
+                    <a href="tel:+14804651398" class="font-bold hover:text-primary transition-colors">(480)
+                        465-1398</a>
+                </div>
+            </div>
+            <div class="flex-1 h-64 md:h-auto min-h-64 bg-slate-200 relative overflow-hidden">
+                <img class="w-full h-full object-cover" alt="Map view of Mesa Arizona" src="/gallery/shopExt.png" />
+                <div class="absolute inset-0 bg-primary/10 pointer-events-none"></div>
+                <div
+                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-12 rounded-full bg-primary/20 flex items-center justify-center animate-pulse">
+                    <div class="size-4 rounded-full bg-primary shadow-lg shadow-primary/50"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </main>
+
+    <!-- Footer -->
+    <footer
+        class="py-10 md:py-12 px-5 md:px-20 border-t border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 md:gap-8">
+            <div class="flex items-center gap-3">
+                <div class="flex flex-col leading-none">
+                    <span class="font-bold text-slate-900 dark:text-white text-sm">State 48 Welding &amp;
+                        Fabrications</span>
+                    <span class="text-xs text-slate-500">55 N. Pomeroy, Mesa, AZ 85201</span>
+                </div>
+            </div>
+            <div class="flex gap-6 md:gap-10 text-sm font-medium">
+                <a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+                <a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
+                <a class="hover:text-primary transition-colors" href="#">Contact</a>
+            </div>
+            <div class="text-sm text-center md:text-right">
+                © 2026 State 48 Welding &amp; Fabrications. All rights reserved.
+            </div>
+        </div>
+    </footer>
+    </div>
     </div>
 
     <!-- Mobile Backdrop -->
