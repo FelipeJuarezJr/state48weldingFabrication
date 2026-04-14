@@ -221,16 +221,16 @@
                                 </div>
                             </div>
 
-                            <div class="flex flex-col sm:flex-row gap-3 pt-2">
-                                <div class="relative">
+                            <div class="flex flex-row gap-3 pt-2 w-full">
+                                <div class="relative flex-1">
                                     <button onclick="toggleQuoteOptions(event)"
-                                        class="btn-primary flex w-full sm:w-auto min-w-44 cursor-pointer items-center justify-center rounded-lg h-13 px-7 text-white text-base font-bold shadow-[0_0_15px_rgba(255,165,0,0.6)] hover:shadow-[0_0_20px_rgba(255,165,0,0.8)] transition-shadow">
-                                        <span class="material-symbols-outlined text-lg mr-2">call</span>
-                                        Get a Quote
+                                        class="btn-primary flex w-full cursor-pointer items-center justify-center rounded-lg h-13 px-2 sm:px-7 text-white text-sm sm:text-base font-bold shadow-[0_0_15px_rgba(255,165,0,0.6)] hover:shadow-[0_0_20px_rgba(255,165,0,0.8)] transition-shadow">
+                                        <span class="material-symbols-outlined text-lg mr-1 sm:mr-2">call</span>
+                                        <span class="truncate">Get a Quote</span>
                                     </button>
 
                                     <div id="quoteDropdown"
-                                        class="hidden absolute z-50 bottom-full left-0 mb-4 w-full flex-col gap-2">
+                                        class="hidden absolute z-50 bottom-full left-0 mb-4 w-full flex-col gap-2 animate-in fade-in slide-in-from-bottom-2 duration-200">
 
                                         <div class="flex flex-col gap-2 md:hidden">
                                             <a href="tel:+14804651398" onclick="event.stopPropagation()"
@@ -245,7 +245,7 @@
                                         </div>
 
                                         <div onclick="event.stopPropagation()"
-                                            class="hidden flex-col items-center justify-center bg-white text-orange-700 border-2 border-primary rounded-lg py-3 shadow-xl px-2">
+                                            class="hidden md:flex flex-col items-center justify-center bg-white text-orange-700 border-2 border-primary rounded-lg py-3 shadow-xl px-2">
                                             <span class="text-xs uppercase tracking-widest opacity-70">Call Us
                                                 Directly</span>
                                             <a href="tel:+14804651398"
@@ -256,15 +256,12 @@
                                     </div>
                                 </div>
 
-                                <div
-                                    class="hidden md:flex flex-col items-center justify-center bg-white text-orange-700 border-2 border-primary rounded-lg py-3 shadow-xl px-2">
-                                    <span class="text-xs uppercase tracking-widest opacity-70">Call Us
-                                        Directly</span>
-                                    <a href="tel:+14804651398"
-                                        class="font-bold text-md hover:underline decoration-2 underline-offset-4">
-                                        (480) 465-1398
-                                    </a>
-                                </div>
+                                <a href="#showcase" class="flex-1">
+                                    <button
+                                        class="bg-blue-600 hover:bg-blue-700 shadow-[0_0_15px_rgba(37,99,235,0.5)] hover:shadow-[0_0_25px_rgba(37,99,235,0.8)] flex w-full cursor-pointer items-center justify-center rounded-lg h-13 px-2 sm:px-7 text-white text-sm sm:text-base font-bold transition-all duration-300">
+                                        <span class="truncate">View Our Work</span>
+                                    </button>
+                                </a>
 
                             </div>
                         </div>
@@ -298,13 +295,6 @@
                                 }
                             });
                         </script>
-
-                        <a href="#showcase" class="contents">
-                            <button
-                                class="mt-4 bg-blue-600 hover:bg-blue-700 shadow-[0_0_15px_rgba(37,99,235,0.5)] hover:shadow-[0_0_25px_rgba(37,99,235,0.8)] flex w-full sm:w-auto min-w-44 cursor-pointer items-center justify-center rounded-lg h-13 px-7 text-white text-base font-bold transition-all duration-300">
-                                View Our Work
-                            </button>
-                        </a>
                     </div>
 
         </div>
